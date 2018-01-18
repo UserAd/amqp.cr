@@ -22,7 +22,7 @@ Add this to your application's `shard.yml`:
 ```yml
 dependencies:
   amqp:
-    github: datanoise/amqp.cr
+    github: userad/amqp.cr
 ```
 
 # Usage

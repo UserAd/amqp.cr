@@ -1,3 +1,4 @@
+require "uri"
 require "logger"
 require "./errors"
 require "./macros"
@@ -36,8 +37,16 @@ module AMQP
                    @frame_max = 0_u32,
                    @heartbeat : Time::Span = 0.seconds,
                    @logger = Logger.new(STDOUT),
-                   @log_level : Logger::Severity = Logger::INFO)
+                   @log_level : Logger::Severity = Logger::INFO,
+                   url = nil)
       @logger.level = @log_level
+      if url
+        uri = URI.parse url
+        @host = uri.host.to_s
+        @port = uri.port || 5672
+        @username = uri.user.to_s
+        @password = uri.password.to_s
+      end
     end
 
     def log_level=(level)
